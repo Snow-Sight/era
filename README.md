@@ -2,7 +2,7 @@
 
 
 [![codecov](https://codecov.io/gh/Snow-Sight/era/branch/master/graph/badge.svg)](https://codecov.io/gh/Snow-Sight/era)
-[![CircleCI](https://circleci.com/gh/Snow-Sight/Era.svg?style=svg)](https://circleci.com/gh/Snow-Sight/Era)
+[![CircleCI](https://circleci.com/gh/Snow-Sight/era.svg?style=svg)](https://circleci.com/gh/Snow-Sight/era)
 
 A reusable package aimed at simplifying errors and tracing their source.
 Heavily inspired by [Failure is your Domain](https://middlemost.com/failure-is-your-domain/).

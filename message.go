@@ -1,6 +1,7 @@
 package era
 
 // Message returns the human-readable message of the error, if available.
+// The message will be the lowest message in the stack.
 // Otherwise returns a generic error message.
 func Message(err error) string {
 	if err == nil {

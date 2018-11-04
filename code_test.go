@@ -52,6 +52,41 @@ func TestWithCode(t *testing.T) {
 	a.Equal("Error", e.Err.Error(), "Error is not wrapped again")
 }
 
+func TestError_WithCode(t *testing.T) {
+	a := assert.New(t)
+	// Wrapping a custom Error without a code, the code should be applied to the top level error wrap.
+	e := &Error{
+		Err:  fmt.Errorf("Error"),
+		Code: "",
+	}
+
+	e = e.WithCode(EConflict)
+
+	a.Equal(EConflict, e.Code, "Code on root error should be set")
+	a.Equal("Error", e.Err.Error(), "Error is not wrapped when code was originally not set")
+
+	// Provided a custom Error with a code, the error should be wrapped and the new code added.
+	e = &Error{
+		Err:  fmt.Errorf("Error"),
+		Code: "some_code",
+	}
+	e = e.WithCode(ECannotDecode)
+
+	a.Equal(ECannotDecode, e.Code, "Code is applied to new wrap")
+	a.NotNil(e.Err, "Error is wrapped with nested error maintained")
+
+	// Provided a custom Error with a code adding a code that is the same should not do anything.
+	e = &Error{
+		Err:  fmt.Errorf("Error"),
+		Code: ECannotDecode,
+	}
+	e = e.WithCode(ECannotDecode)
+
+	a.Equal(ECannotDecode, e.Code, "Code is applied")
+	a.NotNil(e.Err, "Error is wrapped with nested error maintained")
+	a.Equal("Error", e.Err.Error(), "Error is not wrapped again")
+}
+
 func TestCode(t *testing.T) {
 	tt := []struct {
 		err      error
