@@ -5,12 +5,12 @@ help:
 	@echo "    cover-cleanup     Cleanup coverage files"
 
 test:
-	@echo "Running `go test`"
-	@go test
+	@echo "Running `go test ./...`"
+	@go test ./...
 
 cover:
 	@echo "Generating go test coverage, file coverage.out and coverage.html will be created"
-	@go test -coverprofile=coverage.out
+	@go test -coverprofile=coverage.out ./...
 	@go tool cover -html=coverage.out -o coverage.html
 	@echo "Run \"make cover-cleanup\" to remove these files"
 
