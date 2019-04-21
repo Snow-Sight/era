@@ -37,3 +37,41 @@ func message(err error) string {
 
 	return ""
 }
+
+// WithMessage adds a message to the error
+func WithMessage(err error, message string) *Error {
+	e, ok := err.(*Error)
+
+	if !ok {
+		return &Error{
+			Err:     err,
+			Message: message,
+		}
+	}
+	if e.Code == "" {
+		e.Message = message
+		return e
+	} else if e.Message == message {
+		return e
+	}
+
+	return &Error{
+		Err:     err,
+		Message: message,
+	}
+}
+
+// WithMessage adds a message to the Error
+func (e *Error) WithMessage(message string) *Error {
+	if e.Message == "" {
+		e.Message = message
+		return e
+	} else if e.Message == message {
+		return e
+	}
+
+	return &Error{
+		Err:     e,
+		Message: message,
+	}
+}
